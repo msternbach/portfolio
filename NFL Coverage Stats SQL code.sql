@@ -256,6 +256,7 @@ Trevor Lawrence had -4.42 epa with each of them having at least 200 dropbacks. T
 better than average when facing the same coverage more than 50% of the game
 */
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Coverage played evenly (at least less then 30% each):
 
