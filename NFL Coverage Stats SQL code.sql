@@ -202,29 +202,20 @@ output was 4.18 more than normal and his epa was 2.82 points more than his avera
 Josh Dobbs struggled mightly as he had an epa 7.25 points less than his average and also had 6.03 less fantasy points on 191 dropbacks.
 Baker Mayfield also struggled as he had decreased epa of 5.84 on 403 dropbacks.
 
-Cover4 - 25%:
+Cover4 > 21.6%:
 
-Most yards
-Geno had 33 less on 311 dropbacks, Josh Allen had 44.07 less on 195 dropbacks. Hurts had 25 more on 369 dropbacks
-Most tds
-Most ints
-Mahomes had 0.64 more ints on 314 dropbacks. Most top qbs had more ints.
-Passing_epa
-Hurts had a increase of 1.97. Dak had 6.85 less epa, Mahomes had 4.12 less, Allen had 6.13 less
-Most fantasy points
-Hurts had 4.03 more. Dak had 3.38 less. Jackson had 3.09 less. Tua had 2.89 less. Allen had 3.89 less.
+Very few quarterbacks were able to find more success than their average in games when facing cover 4 in the top 25 percentile.
+Only 3 qbs an epa difference of over 2. Matt Stafford had the most success with an epa difference of 4.06. Jalen Hurts also had 
+success with an increased epa of 2.89 and 4.09 more fantasy points than average. 
+
+Among those who did worse Russell Wilson led the pack with a epa 6.66 points less than his average on 356 dropbacks. Dak Prescott had
+a epa of 4.10 less and also had 3.53 fantasy points less than average. Justin Herbert, Mahomes, Josh Allen, and Tua notably had epas
+around 3-4 points less than thier averages.
 
 
+Cover6 > 13.8%:
 
-Cover6 - 15%:
 
-Most yards
-Most tds
-Most ints
-Passing_epa
-Dak had 6.45 increase on 177 dropbacks. Burrow had a -7.02 on 218 dropbacks. Allen had -3.36 on 253 dropbacks
-Most fantasy points
-Dak had 4.85 increase. Goff had a 3.10 increase. Burrow had a 4.45 decrease, Allen had a 3.20 decrease.
 
 Any coverage run more than 50%
 	Justin Fields had the most dropbacks of 317. He had 919 total dropbacks of past 2 seasons. Trevor had 257. Herbert had 230 and Goff had 207.
