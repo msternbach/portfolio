@@ -215,16 +215,69 @@ around 3-4 points less than thier averages.
 
 Cover6 > 13.8%:
 
+In games when cover 6 was run in the top 25 percentile qbs seemed to either do much better or worse than their average without much
+in between. Justin Fields and Jordan Love had increased epas of about 8 each although they had 108 and 121 total dropbacks respectively.
+Dak Prescott had an increased epa of 6.06 and also had 3 more fantasy points than average on 205 dropbacks. Mac Jones had increased fantasy
+output of 3.61 on 362 dropbacks.
+
+On the flip side 10 qbs had a epa that was at least 5.5 less than average which is a huge difference. Mahomes, Joe Burrow, Daniel Jones,
+Kyler Murray, and Brock Purdy were among those qbs. Mahomes and Burrow had 4.86 and 4.34 less fantasy points than their averages respectively.
+*/
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Any coverage run more than 50%
+
+cover_stats AS (SELECT player_name, ROUND(SUM(db),2) AS cov0_dropbacks,
+			ROUND(AVG(passing_yards),2) AS cov0_avg_yards, 
+			ROUND(AVG(passing_tds),2) AS cov0_avg_tds,
+			ROUND(AVG(interceptions),2) AS cov0_avg_ints,
+			ROUND(AVG(passing_epa),2) AS cov0_avg_epa,
+			ROUND(AVG(fantasy_points),2) AS cov0_avg_fantasy_points
+			FROM playerstats
+			INNER JOIN coveragestats
+			ON playerstats.recent_team = coveragestats.name AND
+			playerstats.week = coveragestats.week AND 
+			playerstats.season = coveragestats.season
+			WHERE attempts > 10 AND (cover0 > 0.50 OR cover1 > .50
+									 OR cover2 > 0.50 OR cover3 > .50
+									 OR cover4 > 0.50 OR cover6 > .50)
+			GROUP BY player_name
+			HAVING SUM(db) > 100), 
+
+/*	
+Justin Fields had the most dropbacks of 317 which is interesting because he has 919 total dropbacks over the past two seasons, so almost a third
+of his dropbacks have been in games when he faced a certain coverage more than 50% of the time. He had a +0.52 epa in these games so he did do
+a little better than average when facing a single coverage in the majority of the game.	The quarterback with the biggest epa increase was actually
+Bryce Young who had a epa 8.06 better in these games. 
+	
+Quite a few star quarterbacks struggled. Lamar Jackson had -7.71 epa and Dak had -6.25 on 115 dropbacks each. Justin Herbert had -5.56, Jared Goff had -4.54, and 
+Trevor Lawrence had -4.42 epa with each of them having at least 200 dropbacks. This is very interesting because one would expect star quarterbacks to do
+better than average when facing the same coverage more than 50% of the game
+*/
 
 
-Any coverage run more than 50%
-	Justin Fields had the most dropbacks of 317. He had 919 total dropbacks of past 2 seasons. Trevor had 257. Herbert had 230 and Goff had 207.
-	Geno had 2.85+ epa on 169 dropbacks. Justin Fields has +0.52 epa. Lamar had -7.71 and Dak had -6.25 on 115 dropbacks each. Herbert had -5.56, Goff had -4.54, Trevor -4.42
-	Purdy had 3.49 increase in fantasy points. Justin Fields had 2.90 increase. Dak had -4.78
+-- Coverage played evenly (at least less then 30% each):
 
-Coverage played evenly (at least less then 30% each):
-	Trevor had most dropbacks at 465. Tua, Burrow, Kirk, and Allen were all over 300
-	Mahomes had +3.44 epa on 270 dropbacks. Herbert had +2.13 on 280, Burrow +1.98 on 403. Purdy had -8.13 on 189 dropbacks
-	Kirk had +5.28 on 311 dropbacks. Tom brady had +3.97 on 247 dropbacks, Allen had +3.08. Purdy had -5.94.
+cover_stats AS (SELECT player_name, ROUND(SUM(db),2) AS cov0_dropbacks,
+			ROUND(AVG(passing_yards),2) AS cov0_avg_yards, 
+			ROUND(AVG(passing_tds),2) AS cov0_avg_tds,
+			ROUND(AVG(interceptions),2) AS cov0_avg_ints,
+			ROUND(AVG(passing_epa),2) AS cov0_avg_epa,
+			ROUND(AVG(fantasy_points),2) AS cov0_avg_fantasy_points
+			FROM playerstats
+			INNER JOIN coveragestats
+			ON playerstats.recent_team = coveragestats.name AND
+			playerstats.week = coveragestats.week AND 
+			playerstats.season = coveragestats.season
+			WHERE attempts > 10 AND (cover0 < 0.30 AND cover1 < .30
+									 AND cover2 < 0.30 AND cover3 < .30
+									 AND cover4 < 0.30 AND cover6 < .30)
+			GROUP BY player_name
+			HAVING SUM(db) > 100),
+
 /*
+Trevor Lawrence had most dropbacks at 465, and Tua, Burrow, Kirk Cousins, and Josh Allen all had over 300. Mahomes had +3.44 epa on 270 dropbacks,
+Herbert had +2.13 on 280, and Burrow +1.98 on 403. Brock Purdy was once qb who strggled and had -8.13 epa on 189 dropbacks.
+*/
 
