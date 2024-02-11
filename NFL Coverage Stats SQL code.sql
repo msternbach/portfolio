@@ -193,15 +193,14 @@ It was only on 159 dropbacks but those numbers are so bad that teams start think
 
 Cover3 > 40.875%:
 
-Most yards
-Purdy had 46.84 more yards on 405 dropbacks. Jordan Love had 36 more on 272 dropbacks. Herbert had 31 less on 448 dropbacks
-Most tds
-Hurts had .74 less on 229 dropbacks
-Most ints
-Passing_epa
-Baker had negative 5.84 on 403 dropbacks. Herbert had negative 3.32 on 448 dropbacks.
-Most fantasy points
-Purdy had 4.18 more fantasy points. Baker had negative 3.39 and Herbert had negative 2.55
+Cover 3 should not be run more than 40% of the time against Patrick Mahomes because the star quarterback averaged an epa of 15.46
+which 8.10 points above his normal average. Tua also had an impressive epa increase of 6.60. Sam Darnold and Tyrod Taylor had fantasy
+point increases of 9.02 and 11.15 respectievly although neither had more than 130 dropbacks. One interesting was that almost half
+of Brock Purdy's 811 total dropbacks have been in games facing cover 3 in the top 25 percentile. In those games his fantasy point 
+output was 4.18 more than normal and his epa was 2.82 points more than his average.
+
+Josh Dobbs struggled mightly as he had an epa 7.25 points less than his average and also had 6.03 less fantasy points on 191 dropbacks.
+Baker Mayfield also struggled as he had decreased epa of 5.84 on 403 dropbacks.
 
 Cover4 - 25%:
 
