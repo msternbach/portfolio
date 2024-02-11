@@ -7,7 +7,7 @@ FROM
 (SELECT * FROM coveragestats2023
 UNION
 SELECT * FROM coveragestats2022)
-GROUP BY season
+GROUP BY season;
 
 -- Man was run 24.9% in 2023 and 25.1% in 2022
 -- Zone was run 70.5% in 2023 and 68.5% in 2022
@@ -38,7 +38,7 @@ FROM
 (SELECT * FROM coveragestats2023
 UNION
 SELECT * FROM coveragestats2022)
-GROUP BY season
+GROUP BY season;
 
 -- Cover 3 was run the most by far with it being called about 32% of the time in both 2022 and 2023
 -- Cover2man was run the least with it being called about only 1.7% in both seasons
@@ -88,7 +88,6 @@ SELECT
   PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY cover0) AS cover0_Q4,
   PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY cover1) AS cover1_Q4,
   PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY cover2) AS cover2_Q4,
-  PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY cover2man) AS cover2man_Q4,
   PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY cover3) AS cover3_Q4,
   PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY cover4) AS cover4_Q4,
   PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY cover6) AS cover6_Q4
@@ -96,6 +95,8 @@ FROM
   (SELECT * FROM coveragestats2023
    UNION
    SELECT * FROM coveragestats2022);
+
+-- Percentiles: Cover 0 - 0.047, Cover 1 - 0.276, Cover 2 - 0.19, Cover 3 - 0.40875, Cover 4 - 0.216, Cover 6 - 0.138
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -131,7 +132,7 @@ cover0_stats AS (SELECT player_name, ROUND(SUM(db),2) AS cov0_dropbacks,
 			ON playerstats.recent_team = coveragestats.name AND
 			playerstats.week = coveragestats.week AND 
 			playerstats.season = coveragestats.season
-			WHERE attempts > 10 AND cover0 > .08
+			WHERE attempts > 10 AND cover0 > .047
 			GROUP BY player_name
 			HAVING SUM(db) > 100),
 
@@ -146,54 +147,51 @@ total_averages AS (SELECT player_name, ROUND(SUM(db),2) AS total_dropbacks,
 			playerstats.season = coveragestats.season
 			GROUP BY player_name)
 			
-SELECT cover0_stats.player_name, cov0_dropbacks,total_dropbacks,
-cov0_avg_yards, avg_yards, cov0_avg_tds, avg_tds, cov0_avg_ints,
-avg_ints, cov0_avg_epa, avg_epa, cov0_avg_fantasy_points, avg_fantasy_points
+SELECT cover0_stats.player_name, cov0_dropbacks, total_dropbacks,
+cov0_avg_yards, avg_yards, (cov0_avg_yards - avg_yards) AS yard_diff, cov0_avg_tds, 
+avg_tds, (cov0_avg_tds - avg_tds) AS tds_diff, cov0_avg_ints, avg_ints,
+(cov0_avg_ints - avg_ints) AS ints_diff, cov0_avg_epa, avg_epa,
+(cov0_avg_epa - avg_epa) AS epa_diff, cov0_avg_fantasy_points, avg_fantasy_points,
+(cov0_avg_fantasy_points - avg_fantasy_points) AS fantasy_points_diff
 FROM total_averages
 INNER JOIN cover0_stats
 ON total_averages.player_name = cover0_stats.player_name
+ORDER BY yard_diff;
 
 /*
-Cover0 - 0.08%:
+Cover0 > 4.7%:
 
-Most yards
-G.Minshew, T.Tagovailoa, and D.Ridder had 50+ more yards
-Geno smith and Kirk Cousins had 30 less yards
-Most tds
-Minshew and Trevor Lawrence had 1 more td on average
-Most ints
-Stafford and Lawrence had over 0.5 more ints
-Passing_epa
-Tua had a 9.62 epa boost 
-Kirk cousins had a 4.86 decrease
-Most fantasy points
-Minshew had a 8.77 avg point increase. Only 2 of the 15 qbs had a decrease in average points and it was minimal for both
+When facing cover 0 an increased amount the majority of the players in the list had increased success. Gardner Minshew, Tua Tagovailoa,
+Kenny Pickett, Patrick Mahomes, and Kyler Murray stood out as having much higher than normal statistical output. In games when facing
+Cover 0 percentages in the top 25th percentile Minshew had a whopping increase of 67.19 more passing yards, 6.29 more fantasy points
+and an increased epa of 4.54 on 253 total dropbacks. Kyler Murray had 5.27 more fantasy points, though on just 104 dropbacks, Tua
+and Kenny Pickett each had an increased epa of about 8 which is a very impressive difference, and Mahomes had an increased epa of
+of 4.5 on 348 dropbacks.
 
-Cover1 - 28%:
+Only one qb stood out as doing much worse in games where he faced cover 0 an increased amount and that was Joe Flacco. Flacco had
+an average epa 12.58 points less than his average and had 5.91 less fantasy points despite throwing for 30 more yards than his average.
 
-Most yards
-Davis Mills had 80+ more yards
-Kirk Cousins had 30 less yards
-Most tds
-Geno Smith had .94 more tds
-Andy Dalton had .85 less
-Most ints
-Passing_epa
-Geno and Herbert both had around a 9 point boost. 5 qbs had a 5+ point boost. Purdy and Stafford had a negative 2.7 point decrease
-Most fantasy points
-Geno and Jordan Love both had 8 point boosts. 8 qbs had 3+ point boosts. Only notable decreases were Mac Jones and Dalton.
-Cover2 - 20% :
+Cover1 > 27.6%:
 
-Most yards
-Josh Allen and Burrow had 350+ dropbacks when facing cover 2 20%+ of the time. They had around 30 more yards each. Brissett had 94 more yards. Tua had 27 less yards than average and he had 487 dropbacks.
-Most tds
-Most ints
-Passing_epa
-Dak had a 14.97 epa decrease with 113 total dropbacks. Tua had -2.10 with 487 dropbacks. Carr had + 2.24 on over 300 dropbacks
-Most fantasy points
-Jordan Love had 5.18 point boost on 274 dropbacks. Burrow and Mahomes had 2.31 increase on 300+ dropbacks. Dak had -10.66
+Cover 1 was another coverage that quarterbacks seemed to have increased success on. Geno Smith and Justin Herbert had increased epas
+of 9.10 and 8.90 respectively and Herbert did it on 293 dropbacks. Also, Geno and Jordan Love each had increased fantasy point outputs
+of about 8.
 
-Cover3 - 40%:
+A few qbs such as Mac Jones, Tua, and Andy Dalton did a little worse than their averages but nothing really stood out. Cover 0 and Cover 1
+are both man coverages, so then reason that teams run man coverages only about 30% of the time average might be because qbs have overall
+increased success against man.
+
+Cover2 > 19% :
+
+Against cover 2 Jacoby Brisett and Baker Mayfield both had increased epas of about 8.30, and Joe Falcco had increased epa of 7.36 although
+none of these qbs surpassed 150 total dropbacks against cover 2 when played in the top 25 percentile. Jordan Love had an increased fantasy
+points output of 5.44 on 304 dropbacks.
+
+One star quarterback stood out as doing much worse when facing cover 2 an increased amount; Dak Prescott. Dak had a horrendous
+epa difference of -15.74 with his average epa of 5.54 going to -10.20. He also had 11.54 less fantasy points and 0.92 interceptions.
+It was only on 159 dropbacks but those numbers are so bad that teams start thinking about running cover 2 more against him.
+
+Cover3 > 40.875%:
 
 Most yards
 Purdy had 46.84 more yards on 405 dropbacks. Jordan Love had 36 more on 272 dropbacks. Herbert had 31 less on 448 dropbacks
@@ -239,19 +237,4 @@ Coverage played evenly (at least less then 30% each):
 	Mahomes had +3.44 epa on 270 dropbacks. Herbert had +2.13 on 280, Burrow +1.98 on 403. Purdy had -8.13 on 189 dropbacks
 	Kirk had +5.28 on 311 dropbacks. Tom brady had +3.97 on 247 dropbacks, Allen had +3.08. Purdy had -5.94.
 /*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
