@@ -40,8 +40,8 @@ train_df.groupby('Neighborhood')['SalePrice'].agg([np.min,np.max,np.mean,np.medi
 NeighMedian = train_df.groupby('Neighborhood')['SalePrice'].median().sort_values()
 print(NeighMedian)
 
-# I arbitrarily seperated the neighborhoods by where I thought the medians were the most similar
-# I used my own guesstimates, so this could possibly have been improved with a more mathematical approach
+# Neighborhoods were seperated arbitraliliy where medians seemed the most similar
+# This could possibly have been improved with a more mathematical approach
 
 train_df['Neigh_Type'] = 'Luxury'
 
