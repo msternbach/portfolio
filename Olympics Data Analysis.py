@@ -33,8 +33,6 @@ import seaborn as sns
 # import csv file to dataframe format
 df = pd.read_csv('dataset_olympics.csv')
 
-"""Data Preprocessing"""
-
 # count the amount of entries missing for each column
 df.isna().sum()
 
