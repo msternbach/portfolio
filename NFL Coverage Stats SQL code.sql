@@ -1,3 +1,26 @@
+/*
+Introduction: 
+In this project I wanted to analyze how often different defensive coverages are called and how quarterbacks perform against different defensive coverages. 
+
+Ideally I would
+look at play by play data and see which coverage was called on each play and what the quarterback did on each play. However, I ended up using game by game data as it I 
+couldn't find 
+
+Football Terminology (Please read if you don't have much football knowledge):
+
+In football a defense calls a play on every down to combat whatever the offense had called. There are all sorts of variations of those defensive plays but they will
+almost always be in one of seven defensive coverage shells: cover 0, cover 1, cover 2, cover 2 man, cover 3, cover 4, and cover 6. Cover 0, 1, and 2 man are types of man
+coverages where defensive players are matched up against each receiver and guard them man to man. In cover 1 there is one safety dropped back in zone coverage, in 
+cover 2 man there are two safeties dropped back in zone, and cover 0 there are no safeties. Cover 0 is arguably the most risky coverage as there are no safeties dropped back
+to help out if someone can’t guard their man. Cover 2, cover 3, cover 4 and cover 6 are types of zone coverage. Zone coverage is when every defensive player in coverage
+guards a specified area of the field i.e. a zone. In cover 2 there are two players dropped back in deep zones while the rest of the players in zones play closer to the
+quarterback. In cover 3 three defensive players drop back into deep zones and cover 4 four players are dropped back. Cover 6 is a little different where instead of six
+players dropping back it is splitting the field in half and playing cover 2 on one side of the field and cover 4 on the other.
+
+
+*/
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- How often was zone and man run in 2023 and 2022?
 
@@ -133,6 +156,7 @@ cover0_stats AS (SELECT player_name, ROUND(SUM(db),2) AS cov0_dropbacks,
 			playerstats.week = coveragestats.week AND 
 			playerstats.season = coveragestats.season
 			WHERE attempts > 10 AND cover0 > .047
+			-- Change based on which coverage querying for
 			GROUP BY player_name
 			HAVING SUM(db) > 100),
 
